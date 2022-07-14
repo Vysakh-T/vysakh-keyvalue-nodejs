@@ -14,14 +14,15 @@ import { email } from "envalid";
 import { resolve } from "path";
 import UserNotAuthorizedException from "../exception/UserNotAuthorizedException";
 import IncorrectUsernameOrPasswordException from "../exception/IncorrectUsernameORPasswordException";
+import { AddressDto } from "../dto/AddressDto";
+import { AddressService } from "./AddressService";
 
 export class EmployeeService{
     constructor(private employeeRepository: EmployeeRespository){
 
     }
 
-
-
+    private addressService = new AddressService();
     public employeeLogin = async (
         email: string,
         password: string,
@@ -94,18 +95,39 @@ export class EmployeeService{
         const empData = await this.employeeRepository.getEmployeebyID(uid);
         if(!empData) {
             throw new EntityNotFoundException(ErrorCodes.USER_WITH_ID_NOT_FOUND);
-            // const details: CustomError = {
-            //     CODE:"ddd",
-            //     MESSAGE:"fdfdgdg"
-            // }
-            // throw new EntityNotFoundException(details);
         }
         
         return empData;
-
     }
 
     async updateEmployee(id: string, obj: EmployeeDto){
         return this.employeeRepository.updateEmployee(id,obj);
+    }
+
+
+    //Address Services
+
+    async getAllEmployeeAddresses(){
+        return this.addressService.getAllAddresses();
+    }
+
+    async getAddressByEmployeeID(uid: string){
+        
+        const empData = await this.employeeRepository.getEmployeebyID(uid);
+        if(!empData) {
+            throw new EntityNotFoundException(ErrorCodes.USER_WITH_ID_NOT_FOUND);
+        }
+        
+        return this.addressService.getAddressByID(empData.address.id);
+    }
+
+    async updateEmployeeAddress(id: string, obj: AddressDto){
+
+        const empData = await this.employeeRepository.getEmployeebyID(id);
+        if(!empData) {
+            throw new EntityNotFoundException(ErrorCodes.USER_WITH_ID_NOT_FOUND);
+        }
+
+        return this.addressService.updateAddress(empData.address.id,obj);
     }
 }

@@ -115,6 +115,45 @@ class EmployeeController extends AbstractController {
 
   //Address Manipulations
 
+  private getAllEmployeeAddresses = async (request: RequestWithUser, response: Response, next: NextFunction) => {
+    try {
+      const data: any = { message: "Employee Controller"};
+      console.log(request.body);
+      response.status(200);
+      response.send(this.fmt.formatResponse(await this.employeeService.getAllEmployeeAddresses(), Date.now() - request.startTime, "OK", 1));
+      // response.send(await this.employeeService.updateEmployee(id,obj));
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  private getAddressByEmployeeID = async (request: RequestWithUser, response: Response, next: NextFunction) => {
+    try {
+      const data: any = { message: "Employee Controller"};
+      const obj = Object(request.body);
+      const id = String(request.params.id);
+      console.log(request.body);
+      response.status(200);
+      response.send(this.fmt.formatResponse(await this.employeeService.getAddressByEmployeeID(id), Date.now() - request.startTime, "OK", 1));
+      // response.send(await this.employeeService.updateEmployee(id,obj));
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  private updateEmployeeAddress = async (request: RequestWithUser, response: Response, next: NextFunction) => {
+    try {
+      const data: any = { message: "Employee Controller"};
+      const obj = Object(request.body);
+      const id = String(request.params.id);
+      console.log(request.body);
+      response.status(200);
+      response.send(this.fmt.formatResponse(await this.employeeService.updateEmployeeAddress(id,obj), Date.now() - request.startTime, "OK", 1));
+      // response.send(await this.employeeService.updateEmployee(id,obj));
+    } catch (error) {
+      return next(error);
+    }
+  }
 
 }
 

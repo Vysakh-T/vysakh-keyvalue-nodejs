@@ -3,7 +3,7 @@ import { getConnection } from "typeorm";
 import { DepartmentDto } from "../dto/DepartmentDto";
 import { Department } from "../entities/Department";
 
-export class DepartmentRespository{
+export class DepartmentRepository{
 
     async getAllDepartments(){
         const DepartmentRepo = getConnection().getRepository(Department);

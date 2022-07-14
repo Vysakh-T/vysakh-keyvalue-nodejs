@@ -14,8 +14,8 @@ export class Address extends AbstractEntity {
     @Column({ nullable: false })
     public desc: string;
 
-    // @OneToOne(() => Employee, { cascade: true })
-    // @JoinColumn()
-    // public employee: Employee;
+    @OneToOne(() => Employee, { cascade: true })
+    @JoinColumn()
+    public employee: Employee;
 
 }

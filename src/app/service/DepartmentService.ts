@@ -1,12 +1,12 @@
 import { ObjectLiteral } from "typeorm";
 import { DepartmentDto } from "../dto/DepartmentDto";
 import EntityNotFoundException from "../exception/EntityNotFoundException";
-import { DepartmentRespository } from "../repository/DepartmentRepository";
+import { DepartmentRepository } from "../repository/DepartmentRepository";
 import { ErrorCodes } from "../util/errorCode";
 
 export class DepartmentService{
 
-    constructor(private departmentRepository: DepartmentRespository){
+    constructor(private departmentRepository: DepartmentRepository){
 
     }
 
@@ -34,5 +34,4 @@ export class DepartmentService{
         return this.departmentRepository.updateDepartment(id,obj);
     }
 
-
-    }
+}

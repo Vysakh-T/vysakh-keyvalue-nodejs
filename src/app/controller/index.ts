@@ -8,10 +8,10 @@ import EmployeeController from "./EmployeeController";
 import { DepartmentService } from "../service/DepartmentService";
 import DepartmentController from "./DepartmentController";
 import { EmployeeRespository } from "../repository/EmployeeRepository";
-import { DepartmentRespository } from "../repository/DepartmentRepository";
+import { DepartmentRepository } from "../repository/DepartmentRepository";
 
 export default [
   new HealthController(),
   new EmployeeController(new EmployeeService(new EmployeeRespository())),
-  new DepartmentController(new DepartmentService(new DepartmentRespository())),
+  new DepartmentController(new DepartmentService(new DepartmentRepository())),
 ];
