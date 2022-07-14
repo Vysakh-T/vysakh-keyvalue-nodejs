@@ -4,7 +4,8 @@ import RequestWithUser from "../util/rest/request";
 import APP_CONSTANTS from "../constants";
 import { EmployeeService } from "../service/EmployeeService";
 import validationMiddleware from "../middleware/validationMiddleware";
-import { CreateEmployeeDto } from "../dto/CreateEmployee";
+import { EmployeeDto } from "../dto/EmployeeDto";
+import { AddressDto } from "../dto/AddressDto";
 import authorize from "../middleware/authorizationMiddleware";
 import Roles from "../../helpers/roles";
 
@@ -15,11 +16,17 @@ class EmployeeController extends AbstractController {
   }
   protected initializeRoutes() {
     this.router.get(`${this.path}`, authorize(Object.values(Roles)), this.getAllEmployees);
-    this.router.post(`${this.path}`, authorize([Roles.admin,Roles.hr]), validationMiddleware(CreateEmployeeDto,APP_CONSTANTS.body),this.createEmployee);
+    this.router.post(`${this.path}`, authorize([Roles.admin,Roles.hr]), validationMiddleware(EmployeeDto,APP_CONSTANTS.body),this.createEmployee);
     this.router.get(`${this.path}/:id`, authorize(Object.values(Roles)), this.getEmployeeByID);
     this.router.delete(`${this.path}/:id`, authorize([Roles.admin,Roles.hr]), this.deleteEmployee);
-    this.router.put(`${this.path}/:id`, authorize([Roles.admin,Roles.hr]),validationMiddleware(CreateEmployeeDto,APP_CONSTANTS.body), this.updateEmployee);
+    this.router.put(`${this.path}/:id`, authorize([Roles.admin,Roles.hr]),validationMiddleware(EmployeeDto,APP_CONSTANTS.body), this.updateEmployee);
     this.router.post(`${this.path}/login`, this.login);
+
+    //Address Paths
+
+    this.router.get(`${this.path}/addresses`, authorize(Object.values(Roles)), this.getAllEmployeeAddresses);
+    this.router.get(`${this.path}/:id/address`, authorize(Object.values(Roles)), this.getAddressByEmployeeID);
+    this.router.put(`${this.path}/:id/address`, authorize([Roles.admin,Roles.hr]),validationMiddleware(AddressDto,APP_CONSTANTS.body), this.updateEmployeeAddress);
   }
 
 
@@ -104,6 +111,11 @@ class EmployeeController extends AbstractController {
       return next(error);
     }
   }
+
+
+  //Address Manipulations
+
+
 }
 
 export default EmployeeController;

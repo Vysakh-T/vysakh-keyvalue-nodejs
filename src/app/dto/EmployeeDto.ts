@@ -1,9 +1,9 @@
 import { IsNumber, IsString, validate, ValidateIf, ValidateNested } from "class-validator";
 import { Type } from 'class-transformer';
-import { AddressDto } from "./CreateAddress";
-import { DepartmentDto } from "./CreateDepartment";
+import { AddressDto } from "./AddressDto";
+import { DepartmentDto } from "./DepartmentDto";
 
-export class CreateEmployeeDto {
+export class EmployeeDto {
 
     @IsString()
     public name: string;

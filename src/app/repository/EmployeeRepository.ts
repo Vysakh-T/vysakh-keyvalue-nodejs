@@ -1,6 +1,7 @@
 
 import { options } from "superagent";
 import { getConnection, ObjectLiteral } from "typeorm";
+import { EmployeeDto } from "../dto/EmployeeDto";
 import { Employee } from "../entities/Employee";
 
 export class EmployeeRespository{
@@ -18,7 +19,7 @@ export class EmployeeRespository{
         return employeeDetail;
     }
 
-    async createNewEmployee(obj: ObjectLiteral){
+    async createNewEmployee(obj: EmployeeDto){
         const employeeRepo = getConnection().getRepository(Employee);
         // return employeeRepo.createQueryBuilder().insert().into(Employee).values({name: name}).execute();
         return employeeRepo.save(employeeRepo.create(obj));
@@ -34,7 +35,7 @@ export class EmployeeRespository{
         return employeeRepo.findOne({where:{id: uid}, relations: ['department','address']});
     }
 
-    async updateEmployee(id:string, obj: ObjectLiteral){
+    async updateEmployee(id:string, obj: EmployeeDto){
         const employeeRepo = getConnection().getRepository(Employee);
         return employeeRepo.update(id, obj);
     }

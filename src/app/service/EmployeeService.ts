@@ -3,7 +3,7 @@ import EntityNotFoundException from "../exception/EntityNotFoundException";
 import { EmployeeRespository } from "../repository/EmployeeRepository";
 
 import { CustomError, ErrorCodes } from "../../app/util/errorCode";
-import { CreateEmployeeDto } from "../dto/CreateEmployee";
+import { EmployeeDto } from "../dto/EmployeeDto";
 import { plainToClass } from "class-transformer";
 import { Employee } from "../entities/Employee";
 import HttpException from "../exception/HttpException";
@@ -63,7 +63,7 @@ export class EmployeeService{
         return this.employeeRepository.getAllEmployees();
     }
 
-    async createEmployee(employeeDetails: any){
+    async createEmployee(employeeDetails: EmployeeDto){
         // return this.employeeRepository.createNewEmployee(obj);
 
         try {
@@ -77,7 +77,6 @@ export class EmployeeService{
                 password: employeeDetails.password ?  await bcrypt.hash(employeeDetails.password, 10): '',
                 departmentId: employeeDetails.departmentId,
                 address: employeeDetails.address,
-                department: employeeDetails.department
             });
             const save = await this.employeeRepository.createNewEmployee(newEmployee);
             return save;
@@ -106,7 +105,7 @@ export class EmployeeService{
 
     }
 
-    async updateEmployee(id: string, obj: ObjectLiteral){
+    async updateEmployee(id: string, obj: EmployeeDto){
         return this.employeeRepository.updateEmployee(id,obj);
     }
 }

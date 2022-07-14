@@ -6,7 +6,7 @@ import { DepartmentService } from "../service/DepartmentService";
 import authorize from "../middleware/authorizationMiddleware";
 import Roles from "../../helpers/roles";
 import validationMiddleware from "../middleware/validationMiddleware";
-import { DepartmentDto } from "../dto/CreateDepartment";
+import { DepartmentDto } from "../dto/DepartmentDto";
 
 class DepartmentController extends AbstractController {
   constructor(private departmentService: DepartmentService) {
