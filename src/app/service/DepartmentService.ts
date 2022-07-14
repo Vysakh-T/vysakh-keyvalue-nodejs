@@ -10,38 +10,39 @@ export class DepartmentService{
 
     }
 
-    getAllDepartments(){
+    async getAllDepartments(){
         return this.departmentRepository.getAllDepartments();
     }
 
-    addNewDepartment(obj: DepartmentDto){
+    async addNewDepartment(obj: DepartmentDto){
         return this.departmentRepository.addNewDepartment(obj);
     }
 
-    getDepartmentbyID(id: string){
-        const depData = this.departmentRepository.getDepartmentbyID(id);
+    async getDepartmentbyID(id: string){
+        const depData = await this.departmentRepository.getDepartmentbyID(id);
         if(!depData){
             throw new EntityNotFoundException(ErrorCodes.DEPARTMENT_WITH_ID_NOT_FOUND);
         }
         return depData;
     }
 
-    deleteDepartment(id: string){
+    async deleteDepartment(id: string){
 
-        const depData = this.departmentRepository.getDepartmentbyID(id);
+        const depData = await this.departmentRepository.getDepartmentbyID(id);
         if(!depData){
             throw new EntityNotFoundException(ErrorCodes.DEPARTMENT_WITH_ID_NOT_FOUND);
         }
         return this.departmentRepository.deleteDepartment(id);
-        
+
     }
 
-    updateDepartment(id: string, obj: DepartmentDto){
+    async updateDepartment(id: string, obj: DepartmentDto){
 
-        const depData = this.departmentRepository.getDepartmentbyID(id);
+        const depData = await this.departmentRepository.getDepartmentbyID(id);
         if(!depData){
             throw new EntityNotFoundException(ErrorCodes.DEPARTMENT_WITH_ID_NOT_FOUND);
         }
+
         return this.departmentRepository.updateDepartment(id,obj);
     }
 

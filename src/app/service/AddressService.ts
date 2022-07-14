@@ -11,13 +11,13 @@ export class AddressService{
         this.addressRepository =  new AddressRepository();
     }
 
-    getAllAddresses(){
+    async getAllAddresses(){
         return this.addressRepository.getAllAddresses();
     }
 
 
-    getAddressByID(id: string){
-        const addData = this.addressRepository.getAddressbyID(id);
+    async getAddressByID(id: string){
+        const addData = await this.addressRepository.getAddressbyID(id);
         if(!addData){
             throw new EntityNotFoundException(ErrorCodes.ENTITY_WITH_ID_NOT_FOUND);
         }
@@ -25,8 +25,8 @@ export class AddressService{
     }
 
 
-    updateAddress(id: string, obj: AddressDto){
-        const addData = this.addressRepository.getAddressbyID(id);
+    async updateAddress(id: string, obj: AddressDto){
+        const addData = await this.addressRepository.getAddressbyID(id);
         if(!addData){
             throw new EntityNotFoundException(ErrorCodes.ENTITY_WITH_ID_NOT_FOUND);
         }
