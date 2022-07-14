@@ -5,7 +5,7 @@ import { AddressRepository } from "../repository/AddressRepository";
 import { ErrorCodes } from "../util/errorCode";
 
 export class AddressService{
-    addressRepository: any;
+    addressRepository: AddressRepository;
 
     constructor(){
         this.addressRepository =  new AddressRepository();
@@ -17,7 +17,7 @@ export class AddressService{
 
 
     getAddressByID(id: string){
-        const addData = this.addressRepository.getAddressByID(id);
+        const addData = this.addressRepository.getAddressbyID(id);
         if(!addData){
             throw new EntityNotFoundException(ErrorCodes.ENTITY_WITH_ID_NOT_FOUND);
         }

@@ -15,6 +15,14 @@ class EmployeeController extends AbstractController {
     this.initializeRoutes();
   }
   protected initializeRoutes() {
+
+    //Address Paths
+
+    this.router.get(`${this.path}/:id/address`, authorize(Object.values(Roles)), this.getAddressByEmployeeID);
+    this.router.put(`${this.path}/:id/address`, authorize([Roles.admin,Roles.hr]),validationMiddleware(AddressDto,APP_CONSTANTS.body), this.updateEmployeeAddress);
+    this.router.get(`${this.path}/address`, authorize(Object.values(Roles)), this.getAllEmployeeAddresses);
+
+
     this.router.get(`${this.path}`, authorize(Object.values(Roles)), this.getAllEmployees);
     this.router.post(`${this.path}`, authorize([Roles.admin,Roles.hr]), validationMiddleware(EmployeeDto,APP_CONSTANTS.body),this.createEmployee);
     this.router.get(`${this.path}/:id`, authorize(Object.values(Roles)), this.getEmployeeByID);
@@ -22,11 +30,7 @@ class EmployeeController extends AbstractController {
     this.router.put(`${this.path}/:id`, authorize([Roles.admin,Roles.hr]),validationMiddleware(EmployeeDto,APP_CONSTANTS.body), this.updateEmployee);
     this.router.post(`${this.path}/login`, this.login);
 
-    //Address Paths
 
-    this.router.get(`${this.path}/addresses`, authorize(Object.values(Roles)), this.getAllEmployeeAddresses);
-    this.router.get(`${this.path}/:id/address`, authorize(Object.values(Roles)), this.getAddressByEmployeeID);
-    this.router.put(`${this.path}/:id/address`, authorize([Roles.admin,Roles.hr]),validationMiddleware(AddressDto,APP_CONSTANTS.body), this.updateEmployeeAddress);
   }
 
 
@@ -118,7 +122,7 @@ class EmployeeController extends AbstractController {
   private getAllEmployeeAddresses = async (request: RequestWithUser, response: Response, next: NextFunction) => {
     try {
       const data: any = { message: "Employee Controller"};
-      console.log(request.body);
+      console.log(request.header);
       response.status(200);
       response.send(this.fmt.formatResponse(await this.employeeService.getAllEmployeeAddresses(), Date.now() - request.startTime, "OK", 1));
       // response.send(await this.employeeService.updateEmployee(id,obj));
