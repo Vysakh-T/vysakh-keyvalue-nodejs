@@ -87,7 +87,13 @@ export class EmployeeService{
     }
 
     async deleteEmployee(uid: string){
+
+        const empData = await this.employeeRepository.getEmployeebyID(uid);
+        if(!empData) {
+            throw new EntityNotFoundException(ErrorCodes.USER_WITH_ID_NOT_FOUND);
+        }
         return this.employeeRepository.deleteEmployee(uid);
+        
     }
 
     async getEmployeebyID(uid: string){
@@ -101,6 +107,12 @@ export class EmployeeService{
     }
 
     async updateEmployee(id: string, obj: EmployeeDto){
+
+        const empData = await this.employeeRepository.getEmployeebyID(id);
+        if(!empData) {
+            throw new EntityNotFoundException(ErrorCodes.USER_WITH_ID_NOT_FOUND);
+        }
+        
         return this.employeeRepository.updateEmployee(id,obj);
     }
 

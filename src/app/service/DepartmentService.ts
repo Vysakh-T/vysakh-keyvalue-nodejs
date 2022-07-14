@@ -27,10 +27,21 @@ export class DepartmentService{
     }
 
     deleteDepartment(id: string){
+
+        const depData = this.departmentRepository.getDepartmentbyID(id);
+        if(!depData){
+            throw new EntityNotFoundException(ErrorCodes.DEPARTMENT_WITH_ID_NOT_FOUND);
+        }
         return this.departmentRepository.deleteDepartment(id);
+        
     }
 
     updateDepartment(id: string, obj: DepartmentDto){
+
+        const depData = this.departmentRepository.getDepartmentbyID(id);
+        if(!depData){
+            throw new EntityNotFoundException(ErrorCodes.DEPARTMENT_WITH_ID_NOT_FOUND);
+        }
         return this.departmentRepository.updateDepartment(id,obj);
     }
 

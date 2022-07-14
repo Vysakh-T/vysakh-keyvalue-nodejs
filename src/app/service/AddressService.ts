@@ -26,6 +26,10 @@ export class AddressService{
 
 
     updateAddress(id: string, obj: AddressDto){
+        const addData = this.addressRepository.getAddressbyID(id);
+        if(!addData){
+            throw new EntityNotFoundException(ErrorCodes.ENTITY_WITH_ID_NOT_FOUND);
+        }
         return this.addressRepository.updateAddress(id,obj);
     }
 
