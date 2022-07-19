@@ -22,7 +22,13 @@ export class EmployeeRespository{
     async createNewEmployee(obj: EmployeeDto){
         const employeeRepo = getConnection().getRepository(Employee);
         // return employeeRepo.createQueryBuilder().insert().into(Employee).values({name: name}).execute();
-        return employeeRepo.save(employeeRepo.create(obj));
+        console.log(obj.name)
+        console.log(employeeRepo.create(obj));
+        
+        const neObj = await employeeRepo.save(employeeRepo.create(obj));
+        console.log(neObj);
+        
+        return neObj;
     }
 
     async deleteEmployee(uid: string){

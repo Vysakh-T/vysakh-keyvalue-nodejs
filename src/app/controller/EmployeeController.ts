@@ -23,11 +23,18 @@ class EmployeeController extends AbstractController {
     this.router.get(`${this.path}/address`, authorize(Object.values(Roles)), this.getAllEmployeeAddresses);
 
 
-    this.router.get(`${this.path}`, authorize(Object.values(Roles)), this.getAllEmployees);
-    this.router.post(`${this.path}`, authorize([Roles.admin,Roles.hr]), validationMiddleware(EmployeeDto,APP_CONSTANTS.body),this.createEmployee);
-    this.router.get(`${this.path}/:id`, authorize(Object.values(Roles)), this.getEmployeeByID);
-    this.router.delete(`${this.path}/:id`, authorize([Roles.admin,Roles.hr]), this.deleteEmployee);
-    this.router.put(`${this.path}/:id`, authorize([Roles.admin,Roles.hr]),validationMiddleware(EmployeeDto,APP_CONSTANTS.body), this.updateEmployee);
+    // this.router.get(`${this.path}`, authorize(Object.values(Roles)), this.getAllEmployees);
+    // this.router.post(`${this.path}`, authorize([Roles.admin,Roles.hr]), validationMiddleware(EmployeeDto,APP_CONSTANTS.body),this.createEmployee);
+    // this.router.get(`${this.path}/:id`, authorize(Object.values(Roles)), this.getEmployeeByID);
+    // this.router.delete(`${this.path}/:id`, authorize([Roles.admin,Roles.hr]), this.deleteEmployee);
+    // this.router.put(`${this.path}/:id`, authorize([Roles.admin,Roles.hr]),validationMiddleware(EmployeeDto,APP_CONSTANTS.body), this.updateEmployee);
+    // this.router.post(`${this.path}/login`, this.login);
+
+    this.router.get(`${this.path}`, this.getAllEmployees);
+    this.router.post(`${this.path}`, validationMiddleware(EmployeeDto,APP_CONSTANTS.body),this.createEmployee);
+    this.router.get(`${this.path}/:id`, this.getEmployeeByID);
+    this.router.delete(`${this.path}/:id`, this.deleteEmployee);
+    this.router.put(`${this.path}/:id`, validationMiddleware(EmployeeDto,APP_CONSTANTS.body), this.updateEmployee);
     this.router.post(`${this.path}/login`, this.login);
 
 

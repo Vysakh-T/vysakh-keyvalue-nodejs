@@ -79,6 +79,7 @@ export class EmployeeService{
                 departmentId: employeeDetails.departmentId,
                 address: employeeDetails.address,
             });
+            console.log(newEmployee)
             const save = await this.employeeRepository.createNewEmployee(newEmployee);
             return save;
         } catch (err) {
